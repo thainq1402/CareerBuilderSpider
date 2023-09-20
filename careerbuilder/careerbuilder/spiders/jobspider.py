@@ -1,6 +1,5 @@
 import scrapy
-from scrapy.http import TextResponse
-
+from careerbuilder.items import JobItem
 class JobspiderSpider(scrapy.Spider):
     name = "jobspider"
     allowed_domains = ["careerbuilder.vn"]
@@ -40,22 +39,53 @@ class JobspiderSpider(scrapy.Spider):
         ## this method will go into each job link to get detail of the job 
         job_detail_content = response.css('.job-detail-content .detail-row')
         detail_box = response.css('.detail-box')
-        yield{
+        job_item = JobItem()
+
+        job_item['TenCV']       =  response.css('div.job-desc h1.title::text').get(),
+        job_item['CongTy']      =  response.css('div.job-desc a.employer::text').get(),
+        job_item['DiaDiem']     =  detail_box[0].css('.map p a::text').getall(),
+        job_item['NgayCapNhat'] =  detail_box[1].css('ul li p::text').get(),
+        job_item['NganhNghe']   =  detail_box[1].css('ul li:nth-child(2) p a::text ').getall(),
+        job_item['HinhThuc']    =  detail_box[1].css('ul li:nth-child(3) p::text ').get(),
+        job_item['Luong']       =  detail_box[2].css('ul li:first-child p::text').get(), 
+        if len(detail_box[2].css('.detail-box ul li')) == 3:
+            print("=====================================================")
+            job_item['KinhNghiem'] = 'Không yêu cầu'
+            job_item['CapBac']     = detail_box[2].css('ul li:nth-child(2) p::text').get(),
+        else:
+            job_item['KinhNghiem']  =  detail_box[2].css('ul li:nth-child(2) p::text').get(),
+            job_item['CapBac']      =  detail_box[2].css('ul li:nth-child(3) p::text').get(),
+        # job_item['KinhNghiem']  =  detail_box[2].css('ul li::nth-child(2) p::text').get(),
+        # job_item['CapBac']      =  detail_box[2].css('ul li::nth-child(3) p::text').get(),
+        job_item['HanNopCV']    =  detail_box[2].css('ul li:last-child p::text').get(),
+        job_item['PhucLoi']     =  job_detail_content[0].css('.welfare-list li::text').getall(),
+        job_item['MoTa']        =  job_detail_content[1].css('p::text').getall(),
+        job_item['YeuCau']      =  job_detail_content[2].css('p::text').getall(),
+        job_item['ThongTinKhac'] =  job_detail_content[3].css('.content_fck ul li::text').getall(),
+        job_item['LinkCV']      = response.url
+
+        yield job_item
+
+
+
+
+        
+        # yield{
     
-            'TenCV'         : response.css('div.job-desc h1.title::text').get(),
-            'CongTy '       : response.css('div.job-desc a.employer::text').get(),
-            'DiaDiem'       : detail_box[0].css('.map p a::text').getall(),
-            'NgayCapNhat'   : detail_box[1].css('ul li p::text').get(),
-            'NganhNghe'     : detail_box[1].css('ul li:nth-child(2) p a::text ').getall(),
-            'HinhThuc'      : detail_box[1].css('ul li:nth-child(3) p::text ').get(),
-            'Luong'         : detail_box[2].css('ul li:first-child p::text').get(),
-            'KinhNghiem'    : detail_box[2].css('ul li:nth-child(2) p::text').get(),
-            'CapBac'        : detail_box[2].css('ul li:nth-child(3) p::text').get(),
-            'HanNopCV'      : detail_box[2].css('ul li:last-child p::text').get(),
-            'PhucLoi'       : job_detail_content[0].css('.welfare-list li::text').getall(),
-            'MoTa'          : job_detail_content[1].css('p::text').getall(),
-            'YeuCau'        : job_detail_content[2].css('p::text').getall(),
-            'ThongTinKhac'  : job_detail_content[3].css('.content_fck ul li::text').getall(),
-            'LinkCV'        : response.url
-        }
+        #     'TenCV'         : response.css('div.job-desc h1.title::text').get(),
+        #     'CongTy '       : response.css('div.job-desc a.employer::text').get(),
+        #     'DiaDiem'       : detail_box[0].css('.map p a::text').getall(),
+        #     'NgayCapNhat'   : detail_box[1].css('ul li p::text').get(),
+        #     'NganhNghe'     : detail_box[1].css('ul li:nth-child(2) p a::text ').getall(),
+        #     'HinhThuc'      : detail_box[1].css('ul li:nth-child(3) p::text ').get(),
+        #     'Luong'         : detail_box[2].css('ul li:first-child p::text').get(),         
+        #     'KinhNghiem'    : detail_box[2].css('ul li:nth-child(2) p::text').get(),
+        #     'CapBac'        : detail_box[2].css('ul li:nth-child(3) p::text').get(),
+        #     'HanNopCV'      : detail_box[2].css('ul li:last-child p::text').get(),
+        #     'PhucLoi'       : job_detail_content[0].css('.welfare-list li::text').getall(),
+        #     'MoTa'          : job_detail_content[1].css('p::text').getall(),
+        #     'YeuCau'        : job_detail_content[2].css('p::text').getall(),
+        #     'ThongTinKhac'  : job_detail_content[3].css('.content_fck ul li::text').getall(),
+        #     'LinkCV'        : response.url
+        # }
 
