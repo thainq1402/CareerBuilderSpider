@@ -12,12 +12,16 @@ BOT_NAME = "careerbuilder"
 SPIDER_MODULES = ["careerbuilder.spiders"]
 NEWSPIDER_MODULE = "careerbuilder.spiders"
 
+SCRAPEOPS_API_KEY = '7747a6d5-5765-45c2-8e19-966960c30290'
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT ='https://headers.scrapeops.io/v1/user-agents'
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_NUM_RESULTS = 50 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "careerbuilder (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -50,9 +54,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+DOWNLOADER_MIDDLEWARES = {
 #    "careerbuilder.middlewares.CareerbuilderDownloaderMiddleware": 543,
-#}
+   "careerbuilder.middlewares.ScrapeOpsFakeUserAgentMiddleWare" :400
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -91,3 +96,4 @@ ROBOTSTXT_OBEY = True
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+

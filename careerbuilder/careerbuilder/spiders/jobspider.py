@@ -1,9 +1,15 @@
 import scrapy
 from careerbuilder.items import JobItem
+import random
+
+
+
 class JobspiderSpider(scrapy.Spider):
     name = "jobspider"
     allowed_domains = ["careerbuilder.vn"]
     start_urls = ["https://careerbuilder.vn/tim-viec-lam.html"]
+
+  
 
     def parse(self, response):
         domain = response.css('ul.list-jobs') ## Get all link in 'Tim viec lam theo nganh nghe' , Clas list job
