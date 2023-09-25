@@ -10,4 +10,17 @@ from itemadapter import ItemAdapter
 
 class CareerbuilderPipeline:
     def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+
+        ##remove whitespace 
+        field_names = adapter.field_names()
+
+
+        #list fields that need to remove white space
+        list_fields = ['KinhNghiem','NganhNghe']
+        for field in list_fields: 
+            value = adapter.get(field) #get content of the field
+            adapter[field] = value[0].replace("\r\n","").replace(" ","")
+           
+
         return item

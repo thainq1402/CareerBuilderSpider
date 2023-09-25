@@ -1,6 +1,5 @@
 import scrapy
 from careerbuilder.items import JobItem
-import random
 
 
 
@@ -61,8 +60,6 @@ class JobspiderSpider(scrapy.Spider):
         else:
             job_item['KinhNghiem']  =  detail_box[2].css('ul li:nth-child(2) p::text').get(),
             job_item['CapBac']      =  detail_box[2].css('ul li:nth-child(3) p::text').get(),
-        # job_item['KinhNghiem']  =  detail_box[2].css('ul li::nth-child(2) p::text').get(),
-        # job_item['CapBac']      =  detail_box[2].css('ul li::nth-child(3) p::text').get(),
         job_item['HanNopCV']    =  detail_box[2].css('ul li:last-child p::text').get(),
         job_item['PhucLoi']     =  job_detail_content[0].css('.welfare-list li::text').getall(),
         job_item['MoTa']        =  job_detail_content[1].css('p::text').getall(),
@@ -72,26 +69,4 @@ class JobspiderSpider(scrapy.Spider):
 
         yield job_item
 
-
-
-
-        
-        # yield{
-    
-        #     'TenCV'         : response.css('div.job-desc h1.title::text').get(),
-        #     'CongTy '       : response.css('div.job-desc a.employer::text').get(),
-        #     'DiaDiem'       : detail_box[0].css('.map p a::text').getall(),
-        #     'NgayCapNhat'   : detail_box[1].css('ul li p::text').get(),
-        #     'NganhNghe'     : detail_box[1].css('ul li:nth-child(2) p a::text ').getall(),
-        #     'HinhThuc'      : detail_box[1].css('ul li:nth-child(3) p::text ').get(),
-        #     'Luong'         : detail_box[2].css('ul li:first-child p::text').get(),         
-        #     'KinhNghiem'    : detail_box[2].css('ul li:nth-child(2) p::text').get(),
-        #     'CapBac'        : detail_box[2].css('ul li:nth-child(3) p::text').get(),
-        #     'HanNopCV'      : detail_box[2].css('ul li:last-child p::text').get(),
-        #     'PhucLoi'       : job_detail_content[0].css('.welfare-list li::text').getall(),
-        #     'MoTa'          : job_detail_content[1].css('p::text').getall(),
-        #     'YeuCau'        : job_detail_content[2].css('p::text').getall(),
-        #     'ThongTinKhac'  : job_detail_content[3].css('.content_fck ul li::text').getall(),
-        #     'LinkCV'        : response.url
-        # }
 

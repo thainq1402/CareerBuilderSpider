@@ -143,6 +143,3 @@ class ScrapeOpsFakeUserAgentMiddleWare:
     def process_request(self, request, spider):        
         random_user_agent = self._get_random_user_agent()
         request.headers['User-Agent'] = random_user_agent
-
-        print("======================== New header attached =====================")
-        print(request.headers['User-Agent'])
