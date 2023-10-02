@@ -16,11 +16,16 @@ class CareerbuilderPipeline:
         field_names = adapter.field_names()
 
 
-        #list fields that need to remove white space
-        list_fields = ['KinhNghiem','NganhNghe']
+        # remove white space in field 'KinhNghiem'
+        list_fields = ['KinhNghiem']
         for field in list_fields: 
             value = adapter.get(field) #get content of the field
             adapter[field] = value[0].replace("\r\n","").replace(" ","")
-           
-
+        
+        #remove white space in field 'NganhNghe'
+        name_field = 'NganhNghe'
+        value = adapter.get(name_field)
+        for item in value[0]:
+            print("-=============================")
+            print(item)
         return item
