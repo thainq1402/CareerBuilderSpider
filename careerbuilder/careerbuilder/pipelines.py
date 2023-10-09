@@ -28,7 +28,7 @@ class CareerbuilderPipeline:
         value = adapter.get(name_field) # get the list NganhNghe
         cleaned_item = [item.strip() for item  in value[0]]
         adapter[name_field]=cleaned_item
-        print("==========================================")
+       
           
 
 
