@@ -12,7 +12,7 @@ class CareerbuilderPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
 
-        ##remove whitespace 
+        ##Get field name 
         field_names = adapter.field_names()
 
 
@@ -23,9 +23,18 @@ class CareerbuilderPipeline:
             adapter[field] = value[0].replace("\r\n","").replace(" ","")
         
         #remove white space in field 'NganhNghe'
+        ##ETL NganhNghe
         name_field = 'NganhNghe'
-        value = adapter.get(name_field)
-        for item in value[0]:
-            print("-=============================")
-            print(item)
+        value = adapter.get(name_field) # get the list NganhNghe
+        cleaned_item = [item.strip() for item  in value[0]]
+        adapter[name_field]=cleaned_item
+        print("==========================================")
+          
+
+
+
+
+
+
+
         return item
