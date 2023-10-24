@@ -122,6 +122,7 @@ class ScrapeOpsFakeUserAgentMiddleWare:
         self._scrapeops_fake_user_agents_enabled()
 
 
+
     def _get_user_agents_list(self):
         payload = {'api_key': self.scrapeops_api_key}
         if self.scrapeops_num_results is not None:

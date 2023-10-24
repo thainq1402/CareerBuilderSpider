@@ -11,6 +11,7 @@ class CareerbuilderItem(scrapy.Item):
     name = scrapy.Field()
     pass
 class JobItem(scrapy.Item):
+    Web         = "CareerBuilder"
     TenCV       = scrapy.Field()
     CongTy      = scrapy.Field()
     DiaDiem     = scrapy.Field()

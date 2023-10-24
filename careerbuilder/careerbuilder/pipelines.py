@@ -29,6 +29,9 @@ class CareerbuilderPipeline:
         cleaned_item = [item.strip() for item  in value[0]]
         adapter[name_field]=cleaned_item
        
+        ##ETL Lương 
+        
+
           
 
 

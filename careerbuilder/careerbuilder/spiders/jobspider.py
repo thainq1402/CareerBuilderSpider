@@ -7,7 +7,6 @@ class JobspiderSpider(scrapy.Spider):
     name = "jobspider"
     allowed_domains = ["careerbuilder.vn"]
     start_urls = ["https://careerbuilder.vn/tim-viec-lam.html"]
-
   
 
     def parse(self, response):
@@ -54,7 +53,6 @@ class JobspiderSpider(scrapy.Spider):
         job_item['HinhThuc']    =  detail_box[1].css('ul li:nth-child(3) p::text ').get(),
         job_item['Luong']       =  detail_box[2].css('ul li:first-child p::text').get(), 
         if len(detail_box[2].css('.detail-box ul li')) == 3:
-            print("=====================================================")
             job_item['KinhNghiem'] = 'Không yêu cầu'
             job_item['CapBac']     = detail_box[2].css('ul li:nth-child(2) p::text').get(),
         else:
